@@ -1,51 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'mainapp/base.html' %}
+{% load static %}
 
-<head>
+{% block css%}
+    <link href="{% static 'css/products.css' %}" rel="stylesheet">
+{% endblock %}
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
-    <title>GeekShop - Каталог</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="/static/css/products.css" rel="stylesheet">
-
-</head>
-
-<body>
-
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+{% block content %}
     <div class="container">
-        <a class="navbar-brand" href="index.html">GeekShop</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="products/">Каталог</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-shopping-bag"></i></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="auth/login.html">Войти <i class="fas fa-sign-in-alt"></i></a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<!-- Page Content -->
-<div class="container">
 
     <div class="row">
 
@@ -236,23 +198,15 @@
     </div>
 
 </div>
-<!-- /.container -->
+{% endblock %}
 
-<!-- Footer -->
-<footer class="py-5 bg-dark">
+
+{% block footer %}
+    <footer class="py-5 bg-dark">
     <div class="container">
         <p class="m-0 text-center text-white">Copyright &copy; GeekShop 2020</p>
     </div>
-    <!-- /.container -->
 </footer>
+{% endblock %}
 
-<!-- Bootstrap core JavaScript -->
-<script src="/static/jquery/jquery.min.js"></script>
-<script src="/static/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- FontAwesome script -->
-<script src="/static/fontawesome/fontawesome-icons.js" crossorigin="anonymous"></script>
-
-</body>
-
-</html>
