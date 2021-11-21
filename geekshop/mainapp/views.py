@@ -1,5 +1,9 @@
 from django.shortcuts import render
 
+import json
+import os
+
+MODULE_DIR = os.path.dirname(__file__)
 
 def main(request):
     context = {
@@ -9,26 +13,15 @@ def main(request):
 
 
 def products(request):
+    file_path = os.path.join(MODULE_DIR, 'fixtures/goods.json')
     context = {
         'title': 'GeekShop-Каталог',
     }
+
+    context['products'] = json.load(open(file_path, encoding='utf-8'))
     return render(request, 'mainapp/products.html', context)
 
 
 def contact(request):
     return render(request, 'mainapp/contact.html')
 
-def test_content(request):
-    context = {
-        'title': 'GeekShop',
-        'header': 'Welcome friendo',
-        'user': 'loser',
-        'products': [
-            { 'name': 'Hoody', 'price': 7899 },
-            {'name': 'Blue jaket', 'price': 1899},
-            {'name': 'Nike', 'price': 3800},
-            {'name': 'Bex Black', 'price': 900},
-
-        ]
-    }
-    return render(request, 'mainapp/test_content.html', context)
