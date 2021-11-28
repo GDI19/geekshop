@@ -25,5 +25,6 @@ urlpatterns = [
     path('products/',  include('mainapp.urls', namespace='mainapp')),
     path('contact/', mainapp.contact,),
     path('admin/', admin.site.urls),
+    path('auth/', include('authapp.urls', namespace='auth'))
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
