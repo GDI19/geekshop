@@ -20,7 +20,7 @@ def login(request):
             return HttpResponseRedirect(reverse('main'))
 
     else:
-        login_form = UserLoginForm()
+        # login_form = UserLoginForm()
         content = {'title': title, 'login_form': login_form}
         return render(request, 'authapp/login.html', content)
 
@@ -52,7 +52,7 @@ def register(request):
 
 @login_required
 def profile(request):
-    title = 'редактирование'
+    title = 'Профиль'
 
     if request.method == 'POST':
         edit_form = UserProfilerForm(data=request.POST,files=request.FILES, instance=request.user)
@@ -64,6 +64,6 @@ def profile(request):
     else:
         edit_form = UserProfilerForm(instance=request.user)
 
-    content = {'title': title, 'edit_form': edit_form}
+    content = {'title': title, 'edit_form': edit_form, }
 
     return render(request, 'authapp/profile.html', content)

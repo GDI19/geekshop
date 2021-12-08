@@ -5,6 +5,7 @@ import os
 
 MODULE_DIR = os.path.dirname(__file__)
 
+
 def main(request):
     context = {
         'title': 'GeekShop',
@@ -28,4 +29,3 @@ def products(request):
 
 def contact(request):
     return render(request, 'mainapp/contact.html')
-
