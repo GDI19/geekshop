@@ -5,6 +5,8 @@ from django.urls import reverse
 
 from authapp.forms import UserLoginForm, UserRegisterForm, UserProfilerForm
 
+from basketapp.models import Basket
+
 
 def login(request):
     title = 'GeekShop - Вход'
@@ -51,6 +53,8 @@ def register(request):
 
 
 @login_required
+# для перенаправления на другую стр.(назначается в settings LOGIN_URL='/auth/login')
+# если юзер не  залогиненый
 def profile(request):
     title = 'Профиль'
 
@@ -64,6 +68,10 @@ def profile(request):
     else:
         edit_form = UserProfilerForm(instance=request.user)
 
-    content = {'title': title, 'edit_form': edit_form, }
+    content = {
+        'title': title,
+        'edit_form': edit_form,
+        'baskets': Basket.objects.filter(user=request.user),
+    }
 
     return render(request, 'authapp/profile.html', content)

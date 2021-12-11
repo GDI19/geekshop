@@ -53,26 +53,26 @@
                             <div class="custom-file">
 
                                 {{ edit_form.avatar }}
-                                <label class="custom-file-label" for="{{ dit_form.avatar.id_for_label }}">Выберите изображение</label>
+                                <label class="custom-file-label" for="{{ edit_form.avatar.id_for_label }}">Выберите изображение</label>
                             </div>
 
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col-lg-6">
-                            <label class="small mb-1" for="{{dit_form.username.id_for_label}}">Имя пользователя</label>
+                            <label class="small mb-1" for="{{edit_form.username.id_for_label}}">Имя пользователя</label>
                             {{ edit_form.username}}
                         </div>
 
                         <div class="col-lg-6">
-                            <label class="small mb-1" for="{{dit_form.email.id_for_label}}">Адрес электронной
+                            <label class="small mb-1" for="{{edit_form.email.id_for_label}}">Адрес электронной
                                 почты</label>
                             {{edit_form.email}}
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col-lg-6">
-                            <label class="small mb-1" for="{{dit_form.age.id_for_label}}">Имя пользователя</label>
+                            <label class="small mb-1" for="{{edit_form.age.id_for_label}}">Имя пользователя</label>
                             {{ edit_form.age}}
                         </div>
                     </div>
@@ -85,42 +85,9 @@
                 </form>
             </div>
             <div class="col-lg-5">
-                # Basket
 
-                <h4 class="mt-3 mb-3 d-flex justify-content-between align-items-center mb-3">
-                    Корзина <span class="badge badge-secondary badge-pill">3</span>
-                </h4>
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Product name</h5>
-                        <p class="card-text">Product description</p>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item bg-light">
-                            <div class="row text-center">
-                                <div class="col-lg-4">
-                                    <input name="basketID" type="number" class="form-control"
-                                           value="1" min="0">
-                                </div>
-                                <div class="col-lg-4">2 390 руб.</div>
-                                <div class="col-lg-4">
-                                    <a href="#">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="card mb-3">
-                    <div class="card-footer">
-                        <p class="float-left">Итого</p>
-                        <h4 class="float-right">2 390 руб.</h4>
-                    </div>
-                </div>
-                <button type="button" class="btn btn-success btn-lg float-right">Оформить</button>
+                {% include 'basketapp/basket.html' %}
 
-                # Basket
             </div>
         </div>
     </div>

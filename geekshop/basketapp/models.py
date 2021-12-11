@@ -1,9 +1,10 @@
+from django.conf import settings
 from django.db import models
 
 # from authapp.models import User
 from mainapp.models import Product
 
-from geekshop import settings
+
 
 
 class Basket(models.Model):
