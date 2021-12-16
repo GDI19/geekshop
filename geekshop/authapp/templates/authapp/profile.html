@@ -16,10 +16,30 @@
     <div class="user_avatar"><img src="/media/{{ user.avatar }}"></div>
 
 -->
+{% block css %}
+    <link href="{% static 'css/profile.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
     <div class="container" style="margin-top: 50px;">
         <div class="row">
             <div class="col-lg-7">
+
+            {% if  messages %}
+                    <div class="alert {% if messages.level == 25 %} alert-success {% else %} alert-warning {% endif %}alert-dismissible fade show"
+                         role="alert"
+                         style="margin-top: 50px;">
+                        {% if messages %}
+                            {% for mes in messages %}
+                                {{ mes }}
+                            {% endfor %}
+                        {% endif %}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+            {% endif %}
+
                 <h4 class="mt-3 mb-3">Профиль</h4>
                 <div class="col-lg-12 text-center">
                     <img width="100" height="100"

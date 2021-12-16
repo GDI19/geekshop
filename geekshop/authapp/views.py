@@ -61,10 +61,13 @@ def profile(request):
     if request.method == 'POST':
         edit_form = UserProfilerForm(data=request.POST,files=request.FILES, instance=request.user)
         if edit_form.is_valid():
+            messages.set_level(request, messages.SUCCESS)
+            messages.success(request, 'Вы успешно сохранили профайл')
             edit_form.save()
-            return HttpResponseRedirect(reverse('authapp:profile'))
+            # return HttpResponseRedirect(reverse('authapp:profile'))
         else:
-            print(edit_form.errors)
+            messages.set_level(request, messages.ERROR)
+            messages.error(request, edit_form.errors)
     else:
         edit_form = UserProfilerForm(instance=request.user)
 
