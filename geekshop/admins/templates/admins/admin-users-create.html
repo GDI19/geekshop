@@ -4,6 +4,11 @@
 {% block content %}
     <div class="container-fluid">
         <h1 class="mt-4">Создание пользователя</h1>
+
+        {% if error_mess %}
+            {{ error_mess }}
+        {% endif %}
+
         <form action="{% url 'admins:admin_users_create' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-row">
