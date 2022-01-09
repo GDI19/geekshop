@@ -5,8 +5,19 @@
     <div class="container-fluid">
         <h1 class="mt-4">Создание пользователя</h1>
 
+
+
         {% if error_mess %}
-            {{ error_mess }}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert"
+             style="margin-top: 50px;">
+            <strong>Holy guacamole!</strong>
+
+                {{ error_mess | escape }}
+
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
         {% endif %}
 
         <form action="{% url 'admins:admin_users_create' %}" method="post" enctype="multipart/form-data">
