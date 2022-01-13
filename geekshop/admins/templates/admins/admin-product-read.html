@@ -54,20 +54,22 @@
                                         <i class="fas fa-times-circle"></i>
                                     {% endif %}
                                 </td>
+
                                 <td>
-                                    <form action="{#% url 'admins:admin_category_delete' category.id %#}"
+                                    <form action="{% url 'admins:product_update' pk=product.id %}">
+                                        {% csrf_token %}
+                                        <input class="btn btn-success btn-block" type="submit" value="Изменить">
+                                    </form>
+                                </td>
+
+                                <td>
+                                    <form action="{% url 'admins:product_delete' product.id %}"
                                           method="post">
                                         {% csrf_token %}
                                         <input class="btn btn-danger btn-block" type="submit" value="Удалить">
                                     </form>
                                 </td>
-                                <td>
-                                    <form action="{#% url 'admins:admin_category_update' category.id %#}"
-                                          method="post">
-                                        {% csrf_token %}
-                                        <input class="btn btn-success btn-block" type="submit" value="Изменить">
-                                    </form>
-                                </td>
+
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -75,14 +77,12 @@
                 </div>
             </div>
 
-            <form action="{% url 'admins:product_create' %}" class="card-footer">
-                <p><b>Какое у вас состояние разума?</b></p>
+            <div class="card-footer">
+                <a href="{% url 'admins:product_create' %}" >
+                    <button class="btn btn-success" >Создать товар </button>
+                </a>
+            </div>
 
-                <p><input name="dzen" type="radio" value="nedzen"> Не дзен</p>
-                <p><input name="dzen" type="radio" value="dzen"> Дзен</p>
-                <p><input name="dzen" type="radio" value="pdzen" checked> Полный дзен</p>
-                <p><input type="submit" class="btn btn-success" value="Создать продукт"></p>
-            </form>
 
         </div>
     </div>

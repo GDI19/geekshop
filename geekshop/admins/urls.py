@@ -22,8 +22,8 @@ urlpatterns = [
     path('category-delete/<int:pk>', admin_category_delete, name='admin_category_delete'),
 
     path('products/read/', products_read, name='products_read'),
-    path('products/create/category/<int:pk>/', product_create, name='product_create'),
-    path('products/read/category/<int:pk>/', products, name='products'),
+    path('products/create/category/', product_create, name='product_create', ),
+    # path('products/read/category/<int:pk>/', products, name='products'),
     path('products/update/<int:pk>/', product_update, name='product_update'),
     path('products/delete/<int:pk>/', product_delete, name='product_delete'),
 ]

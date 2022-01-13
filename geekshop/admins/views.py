@@ -135,14 +135,17 @@ def admin_category_delete(request, pk):
 def products_read(request):
     title = 'Товары'
     products = Product.objects.all()
-    content = {'title': title, 'object_list': products, }
+    content = {'title': title,
+               'object_list': products,
+               'category_list': ProductCategory.objects.all(),
+               }
 
     return render(request, 'admins/admin-product-read.html', content)
 
 
-def product_create(request, pk):
+def product_create(request):
     title = 'Товар/создание'
-    category = get_object_or_404(ProductCategory, pk=pk)
+    # category = get_object_or_404(ProductCategory, pk=pk)
     error_mess = ''
 
     if request.method == 'POST':
@@ -153,11 +156,11 @@ def product_create(request, pk):
         else:
             error_mess = product_form.errors
     else:
-        product_form = ProductEditForm(initial={'category': category})
+        product_form = ProductEditForm()
 
     content = {'title': title,
-               'update_form': product_form,
-               'category': category,
+               'product_form': product_form,
+               #'category': category,
                'error_mess': error_mess,
                }
 
@@ -165,36 +168,36 @@ def product_create(request, pk):
 
 
 def product_update(request, pk):
-    title = 'продукт/редактирование'
-
+    title = 'Редактирование товара'
     edit_product = get_object_or_404(Product, pk=pk)
-
     if request.method == 'POST':
-        edit_form = ProductEditForm(request.POST, request.FILES, instance=edit_product)
+        edit_form = ProductEditForm(request.POST, files=request.FILES, instance=edit_product)
         if edit_form.is_valid():
+            edit_product.is_active = True
             edit_form.save()
-            return HttpResponseRedirect(reverse('admin:product_update', args=[edit_product.pk]))
+            return HttpResponseRedirect(reverse('admins:products_read'))
     else:
         edit_form = ProductEditForm(instance=edit_product)
 
     content = {'title': title,
                'update_form': edit_form,
-               'category': edit_product.category
+               'category': edit_product.category,
+               'pk': pk,
                }
 
-    return render(request, 'admins/admin-product-create.html', content)
+    return render(request, 'admins/product-update.html', content)
 
 
 def product_delete(request, pk):
-    title = 'продукт/удаление'
+    title = 'Удаление товара'
 
     product = get_object_or_404(Product, pk=pk)
 
     if request.method == 'POST':
         product.is_active = False
         product.save()
-        return HttpResponseRedirect(reverse('admin:products', args=[product.category.pk]))
+        return HttpResponseRedirect(reverse('admins:products_read'))
 
     content = {'title': title, 'product_to_delete': product}
 
-    return render(request, 'adminapp/product_delete.html', content)
+    return render(request, 'admins/admin-product-read.html', content)
