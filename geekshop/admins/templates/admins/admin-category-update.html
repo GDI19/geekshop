@@ -3,7 +3,7 @@
 {% block content %}
             <div class="container-fluid">
                 <h1 class="mt-4">{{title}}</h1>
-                <form action="{% url 'admins:admin_category_update' category_select.id %}" method="post">
+                <form action="{% url 'admins:admin_category_update' productcategory.id %}" method="post">
                     {% csrf_token %}
                     <div class="form-row">
                         <div class="col-lg-6">

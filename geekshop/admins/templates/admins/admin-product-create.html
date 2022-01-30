@@ -26,7 +26,7 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label class="small mb-1" for="{{ product_form.category.id_for_label }}">категория</label>
-                                {{ product_form.category }}
+                                {{ form.category }}
                             </div>
                         </div>
                     </div>
@@ -36,7 +36,7 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label class="small mb-1" for="{{ product_form.name.id_for_label }}">Наименование</label>
-                                {{ product_form.name }}
+                                {{ form.name }}
                             </div>
                         </div>
                     </div>
@@ -45,7 +45,7 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label class="small mb-1" for="{{ product_form.description.id_for_label }}">Описание</label>
-                                {{ product_form.description }}
+                                {{ form.description }}
                             </div>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label class="small mb-1" for="{{ product_form.price.id_for_label }}">Цена</label>
-                                {{ product_form.price }}
+                                {{ form.price }}
                             </div>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label class="small mb-1" for="{{ product_form.quantity.id_for_label }}">Количество</label>
-                                {{ product_form.quantity }}
+                                {{ form.quantity }}
                             </div>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
                     <div class="form-row">
                         <div class="col-lg-6">
                             <div class="custom-file">
-                                {{ product_form.image }}
+                                {{ form.image }}
                                 <label class="custom-file-label" for="{{ product_form.image.id_for_label }}">Выберите изображение</label>
                             </div>
                         </div>

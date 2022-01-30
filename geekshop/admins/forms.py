@@ -49,6 +49,9 @@ class ProductCategoryEditForm(forms.ModelForm):
 
 
 class ProductEditForm(forms.ModelForm):
+    category = forms.ModelChoiceField(queryset=ProductCategory.objects.all())
+    image = forms.ImageField(widget=forms.FileInput,  required=False)
+
     class Meta:
         model = Product
         fields = '__all__'
@@ -56,7 +59,10 @@ class ProductEditForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control py-4'
+            if field_name == 'category':
+                field.widget.attrs['class'] = 'form-control'
+            else:
+                field.widget.attrs['class'] = 'form-control py-4'
             field.help_text = ''
         self.fields['image'].widget.attrs['class'] = 'custom-file-input'
 

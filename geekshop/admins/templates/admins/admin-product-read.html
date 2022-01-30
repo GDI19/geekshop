@@ -50,13 +50,12 @@
                                     {% if product.is_active %}
                                         <i class="fas fa-check-circle"></i>
                                     {% else %}
-
                                         <i class="fas fa-times-circle"></i>
                                     {% endif %}
                                 </td>
 
                                 <td>
-                                    <form action="{% url 'admins:product_update' pk=product.id %}">
+                                    <form action="{% url 'admins:product_update' product.id %}">
                                         {% csrf_token %}
                                         <input class="btn btn-success btn-block" type="submit" value="Изменить">
                                     </form>
@@ -66,7 +65,7 @@
                                     <form action="{% url 'admins:product_delete' product.id %}"
                                           method="post">
                                         {% csrf_token %}
-                                        <input class="btn btn-danger btn-block" type="submit" value="Удалить">
+                                        <input class="btn btn-danger btn-block" type="submit" value="Деактивировать/ Активировать">
                                     </form>
                                 </td>
 

@@ -3,14 +3,14 @@
 {% block content %}
             <div class="container-fluid">
                 <h1 class="mt-4">{{title}}</h1>
-                <form action="{% url 'admins:product_update' pk %}" method="post">
+                <form action="{% url 'admins:product_update' product.id %}" method="post">
                     {% csrf_token %}
 
                     <div class="form-row">
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label class="small mb-1" for="{{ update_form.name.id_for_label }}">Наименование</label>
-                                {{ update_form.name }}
+                                {{ form.name }}
                             </div>
                         </div>
                     </div>
@@ -19,7 +19,7 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label class="small mb-1" for="{{ update_form.category.id_for_label }}">категория</label>
-                                {{ update_form.category }}
+                                {{ form.category }}
                             </div>
                         </div>
                     </div>
@@ -28,7 +28,7 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label class="small mb-1" for="{{ update_form.description.id_for_label }}">Описание</label>
-                                {{ update_form.description }}
+                                {{ form.description }}
                             </div>
                         </div>
                     </div>
@@ -38,7 +38,7 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label class="small mb-1" for="{{ update_form.price.id_for_label }}">Цена</label>
-                                {{ update_form.price }}
+                                {{ form.price }}
                             </div>
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label class="small mb-1" for="{{ update_form.quantity.id_for_label }}">Количество</label>
-                                {{ update_form.quantity }}
+                                {{ form.quantity }}
                             </div>
                         </div>
                     </div>
@@ -55,15 +55,20 @@
                     <div class="form-row">
                         <div class="col-lg-6">
                             <div class="custom-file">
-                                {{ update_form.image }}
+                                {{ form.image }}
                                 <label class="custom-file-label" for="{{ update_form.image.id_for_label }}">Выберите изображение</label>
                             </div>
                         </div>
                     </div>
 
                     <div class="form-row">
-                        <div class="col-lg-6" style="margin-top: 33px;">
-                            <input class="btn btn-info btn-block" type="submit" value="Сохранить">
+                        <div class="col-lg-3" style="margin-top: 33px;">
+                            <input class="btn float-lg-right btn-info btn-block btn-lg" type="submit" value="Сохранить">
+                        </div>
+                        <div class="col-lg-3" style="margin-top: 33px;">
+                            <input type="button" class="btn float-lg-right btn-danger btn-block btn-lg"
+                                   onclick="window.location.href = '{% url 'admins:products_read' %}';"
+                                   value="Отмена"/>
                         </div>
                     </div>
                 </form>
