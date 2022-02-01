@@ -6,9 +6,9 @@ from authapp.models import User
 
 JSON_PATH = 'mainapp/fixtures'
 
-def load_from_json(file_name):
-    with open(os.path.join(JSON_PATH, file_name+'.json'), mode='r', encoding='utf-8') as infile:
 
+def load_from_json(file_name):
+    with open(os.path.join(JSON_PATH, file_name + '.json'), mode='r', encoding='utf-8') as infile:
         return json.load(infile)
 
 
@@ -23,7 +23,6 @@ class Command(BaseCommand):
             new_category = ProductCategory(**cat)
             new_category.save()
 
-
         products = load_from_json('products')
 
         Product.objects.all().delete()
@@ -31,11 +30,9 @@ class Command(BaseCommand):
             prod = product.get('fields')
             category = prod.get('category')
             _category = ProductCategory.objects.get(id=category)
-            prod['category'] =_category
+            prod['category'] = _category
             new_category = Product(**prod)
             new_category.save()
 
         # Создаем суперпользователя при помощи менеджера модели
         super_user = User.objects.create_superuser('django', 'django@geekshop.local', 'geekbrains', age=37)
-
-
