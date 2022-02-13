@@ -9,7 +9,7 @@ import os
 MODULE_DIR = os.path.dirname(__file__)
 
 
-def main(request):
+def index(request):
     context = {
         'title': 'GeekShop',
     }

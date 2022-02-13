@@ -4,12 +4,12 @@
 {% block content %}
 <div class="col-lg-7">
 
-    {% if register_form.errors %}
+    {% if form.errors %}
         <div class="alert alert-warning alert-dismissible fade show" role="alert"
              style="margin-top: 50px;">
             <strong>Holy guacamole!</strong>
 
-            {% for error in register_form.errors %}
+            {% for error in form.errors %}
                 {{ error | escape }}
             {% endfor %}
 
@@ -29,39 +29,39 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="small mb-1" for="{{ register_form.first_name.id_for_label }}">Имя</label>
-                            {{ register_form.first_name }}
+                            {{ form.first_name }}
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="small mb-1" for="{{ register_form.last_name.id_for_label }}">Фамилия</label>
-                            {{ register_form.last_name }}
+                            {{ form.last_name }}
                         </div>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="col-md-6">
                         <label class="small mb-1" for="{{ register_form.username.id_for_label }}">Имя пользователя</label>
-                        {{ register_form.username }}
+                        {{ form.username }}
                     </div>
                     <div class="col-md-6">
                         <label class="small mb-1" for="{{ register_form.email.id_for_label }}">Адрес электронной
                             почты</label>
-                        {{ register_form.email }}
+                        {{ form.email }}
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="small mb-1" for="{{ register_form.password1.id_for_label }}">Пароль</label>
-                            {{ register_form.password1 }}
+                            {{ form.password1 }}
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="small mb-1" for="{{ register_form.password2.id_for_label }}">Подтверждение
                                 пароля</label>
-                            {{ register_form.password2 }}
+                            {{ form.password2 }}
                         </div>
                     </div>
                 </div>

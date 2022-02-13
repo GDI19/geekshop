@@ -130,3 +130,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'authapp.User'
 
 LOGIN_URL = '/auth/login/'
+
+# при входе перенаправляет вместо стандарта (accounts/profile) на нужную страницу (например:  '/' - домашняя)
+LOGIN_REDIRECT_URL = '/auth/profile/'

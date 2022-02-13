@@ -3,7 +3,7 @@
 {% block content %}
 <div class="col-lg-5">
 
-    {% if login_form.non_field_errors or messages %}
+    {% if form.non_field_errors or messages %}
     <div class="alert alert-warning alert-dismissible fade show" role="alert"
          style="margin-top: 50px;">
         <strong>Holy guacamole!</strong>
@@ -13,7 +13,7 @@
                 {{ mes }}
             {% endfor %}
         {% else %}
-            {% for error in login_form.non_field_errors %}
+            {% for error in form.non_field_errors %}
                 {{error}}
             {% endfor %}
         {% endif %}
@@ -32,12 +32,12 @@
         {% csrf_token %}
                 <div class="form-group">
                     <label class="small mb-1" for="{{ login_form.username.id_for_label }}">Имя пользователя</label>
-                        {{ login_form.username }}
+                        {{ form.username }}
 
                 </div>
                 <div class="form-group">
                     <label class="small mb-1" for="{{ login_form.password.id_for_label }}">Пароль</label>
-                        {{ login_form.password }}
+                        {{ form.password }}
 
                 </div>
                 <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">

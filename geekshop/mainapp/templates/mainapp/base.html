@@ -11,6 +11,8 @@
     <meta name="author" content="">
 
     <title>{{ title }}</title>
+    <meta name="csrf-token" content="{{ csrf_token }}">
+
 
     <!-- Bootstrap core CSS -->
     <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -25,7 +27,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="{% url 'main' %}">GeekShop</a>
+        <a class="navbar-brand" href="{% url 'index' %}">GeekShop</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -36,7 +38,7 @@
                 <li class="nav-item">
                     <a class="navbar-brand" >{% now "d M Y " %} </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item"6>
                     <a class="nav-link" href="{% url 'mainapp:products' %}">Каталог <i class="fas fa-shopping-bag"></i> </a>
                 </li>
 

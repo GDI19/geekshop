@@ -55,7 +55,7 @@
                             <div class="form-group">
                                 <label class="small mb-1" for="{{ edit_form.first_name.id_for_label }}">Имя</label>
 
-                                {{ edit_form.first_name }}
+                                {{ form.first_name }}
 
                             </div>
                         </div>
@@ -63,7 +63,7 @@
                             <div class="form-group">
                                 <label class="small mb-1" for="{{ edit_form.last_name.id_for_label }}">Фамилия</label>
 
-                                {{ edit_form.last_name }}
+                                {{ form.last_name }}
 
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                         <div class="col-lg-12">
                             <div class="custom-file">
 
-                                {{ edit_form.avatar }}
+                                {{ form.avatar }}
                                 <label class="custom-file-label" for="{{ edit_form.avatar.id_for_label }}">Выберите изображение</label>
                             </div>
 
@@ -81,19 +81,19 @@
                     <div class="form-row">
                         <div class="col-lg-6">
                             <label class="small mb-1" for="{{edit_form.username.id_for_label}}">Имя пользователя</label>
-                            {{ edit_form.username}}
+                            {{ form.username}}
                         </div>
 
                         <div class="col-lg-6">
                             <label class="small mb-1" for="{{edit_form.email.id_for_label}}">Адрес электронной
                                 почты</label>
-                            {{edit_form.email}}
+                            {{form.email}}
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col-lg-6">
                             <label class="small mb-1" for="{{edit_form.age.id_for_label}}">Имя пользователя</label>
-                            {{ edit_form.age}}
+                            {{ form.age}}
                         </div>
                     </div>
 
