@@ -1,3 +1,6 @@
+import hashlib
+import random
+
 from .models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm
 # from django.core.exceptions import ValidationError
@@ -43,6 +46,19 @@ class UserRegisterForm(UserCreationForm):
             raise forms.ValidationError("Вы слишком молоды!")
 
         return data
+    
+    def save(self):
+        user = super(UserRegisterForm, self).save()
+
+        user.is_active = False
+        salt = hashlib.sha1(str(random.random()).encode('utf8')).hexdigest()[:6]
+        user.activation_key = hashlib.sha1((user.email + salt).encode('utf8')).hexdigest()
+        # other variant without salt is user.activation_key = hashlib.md5(user.email.encode('utf-8')+os.urandom(64)).hexdigest()
+        user.save()
+        return user
+
+
+    
 
 
 class UserProfilerForm(UserChangeForm):
