@@ -24,6 +24,62 @@ class Logout(LogoutView):
     template_name = 'mainapp/index.html'
 
 
+def send_verify_mail(user):
+    verify_link = reverse('auth:verify', args=[user.email, user.activation_key])
+    title = f'Подтверждение учетной записи {user.username}'
+    message = f'Для подтверждения учетной записи {user.username} ' \
+              f'на портале {settings.DOMAIN_NAME} ' \
+              f'перейдите по ссылке: \n{settings.DOMAIN_NAME}{verify_link}'
+    return send_mail(title, message, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
+
+
+def register(request):
+    title = 'регистрация'
+
+    if request.method == 'POST':
+        register_form = UserRegisterForm(data=request.POST)
+
+        if register_form.is_valid():
+            user = register_form.save()
+            if send_verify_mail(user):
+                # print('сообщение подтверждения отправлено')
+                messages.success(request, 'Вы успешно зарегистрировались, вам была отправлена ссылка на почту'
+                                          ' подтвердите свой  аккаунт перейдя по ссылке')
+                return HttpResponseRedirect(reverse('authapp:login'))
+            else:
+                # print('ошибка отправки сообщения')
+                messages.success(request, 'Ошибка отправки сообщения')
+                return HttpResponseRedirect(reverse('auth:login'))
+        else:
+            # print(register_form.errors)
+            messages.set_level(request, messages.ERROR)
+            messages.error(request, register_form.errors)
+            register_form = UserRegisterForm(data=request.POST, files=request.FILES)
+    else:
+        register_form = UserRegisterForm()
+
+    content = {'title': title, 'register_form': register_form}
+
+    return render(request, 'authapp/register.html', content)
+
+
+def verify(request, email, activation_key):
+    try:
+        user = User.objects.get(email=email)
+        if user.activation_key == activation_key and not user.is_activation_key_expired():
+            user.is_active = True
+            user.save()
+            auth.login(request, user)
+            return render(request, 'authapp/verification.html')
+        else:
+            print(f'error activation user: {user}')
+            return render(request, 'authapp/verification.html')
+    except Exception as e:
+        print(f'error activation user : {e.args}')
+        return HttpResponseRedirect(reverse('index'))
+
+
+"""
 class RegisterListView(FormView, BaseClassContextMixin):
     model = User
     template_name = 'authapp/register.html'
@@ -47,9 +103,7 @@ class RegisterListView(FormView, BaseClassContextMixin):
             messages.set_level(request, messages.ERROR)
             messages.error(request, form.errors)
         return render(request, self.template_name, {'form': form})
-
-
-"""    
+ 
     def send_verify_link(self, user):
         verify_link = reverse('authapp:verify', args=[user.email, user.activation_key])
         subject = f'Для активации учетной записи {user.username} пройдите по ссылке'
@@ -94,25 +148,6 @@ class ProfileFormView(UpdateView, BaseClassContextMixin, UserDispatchMixin):
 
 
 """
-def register(request):
-    title = 'регистрация'
-
-    if request.method == 'POST':
-        register_form = UserRegisterForm(data=request.POST)
-
-        if register_form.is_valid():
-            register_form.save()
-            messages.success(request, 'Вы успешно зарегистрировались')
-            return HttpResponseRedirect(reverse('authapp:login'))
-        else:
-            print(register_form.errors)
-    else:
-        register_form = UserRegisterForm()
-
-    content = {'title': title, 'register_form': register_form}
-
-    return render(request, 'authapp/register.html', content)
-
 
 @login_required
 # для перенаправления на другую стр.(назначается в settings LOGIN_URL='/auth/login')
