@@ -25,15 +25,21 @@
         <div class="row">
             <div class="col-lg-7">
 
-            {% if  messages %}
+            {% if form.non_field_errors or messages %}
                     <div class="alert {% if messages.level == 25 %} alert-success {% else %} alert-warning {% endif %}alert-dismissible fade show"
                          role="alert"
                          style="margin-top: 50px;">
+
                         {% if messages %}
                             {% for mes in messages %}
                                 {{ mes }}
                             {% endfor %}
+                        {% else %}
+                            {% for error in form.non_field_errors %}
+                                {{error}}
+                            {% endfor %}
                         {% endif %}
+
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -95,7 +101,27 @@
                             <label class="small mb-1" for="{{edit_form.age.id_for_label}}">Имя пользователя</label>
                             {{ form.age}}
                         </div>
+                        <div class="col-lg-6">
+                            <label class="small mb-1" for="{{ profile.gender.id_for_label }}">Пол
+                            </label>
+                            {{ profile.gender }}
+                        </div>
                     </div>
+                    <div class="form-row">
+                        <div class="col-lg-12">
+                            <label class="small mb-1" for="{{ profile.about.id_for_label }}">О себе
+                            </label>
+                            {{ profile.aboutMe }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-12">
+                            <label class="small mb-1" for="{{ profile.tagline.id_for_label }}">Теги
+                            </label>
+                            {{ profile.tagline }}
+                        </div>
+                    </div>
+
 
                     <div class="form-row">
                         <div class="col-lg-12" style="margin-top: 33px;">
