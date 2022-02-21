@@ -1,7 +1,7 @@
 import hashlib
 import random
 
-from .models import User
+from .models import User, ShopUserProfile
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm
 # from django.core.exceptions import ValidationError
 from django import forms
@@ -46,7 +46,7 @@ class UserRegisterForm(UserCreationForm):
             raise forms.ValidationError("Вы слишком молоды!")
 
         return data
-    
+
     def save(self):
         user = super(UserRegisterForm, self).save()
 
@@ -56,9 +56,6 @@ class UserRegisterForm(UserCreationForm):
         # other variant without salt is user.activation_key = hashlib.md5(user.email.encode('utf-8')+os.urandom(64)).hexdigest()
         user.save()
         return user
-
-
-    
 
 
 class UserProfilerForm(UserChangeForm):
@@ -82,5 +79,18 @@ class UserProfilerForm(UserChangeForm):
         data = self.cleaned_data['age']
         if data < 18:
             raise forms.ValidationError("Вы слишком молоды!")
-
         return data
+
+
+class UserProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = ShopUserProfile
+        fields = ('tagline', 'aboutMe', 'gender')
+
+    def __init__(self, *args, **kwargs):
+        super(UserProfileEditForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            if field_name != 'gender':
+                field.widget.attrs['class'] = 'form-control py-4'
+            else:
+                field.widget.attrs['class'] = 'form-control'
