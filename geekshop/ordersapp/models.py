@@ -59,7 +59,7 @@ class Order(models.Model):
 
 """
 class OrderItemQuerySet(models.QuerySet):
-
+// для обновления инфы без @receiver во views
    def delete(self, *args, **kwargs):
        for object in self:
            object.product.quantity += object.quantity

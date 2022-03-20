@@ -83,7 +83,7 @@ class OrderUpdate(UpdateView):
             formset = OrderFormSet(self.request.POST, instance=self.object)
         else:
             formset = OrderFormSet(instance=self.object)
-            for form in formset:
+            for form in formset.forms:
                 if form.instance.pk:
                     form.initial['price'] = form.instance.product.price
 
@@ -122,14 +122,12 @@ def order_forming_complete(request, pk):
     return HttpResponseRedirect(reverse('orders:list'))
 
 
-
-def get_product_price(request,pk):
+def get_product_price(request, pk):
     if request.is_ajax():
         product = Product.objects.get(pk=pk)
         if product:
-            return JsonResponse({'price':product.price})
-        return JsonResponse({'price':0})
-
+            return JsonResponse({'price': product.price})
+        return JsonResponse({'price': 0})
 
 
 @receiver(pre_save, sender=Basket)
