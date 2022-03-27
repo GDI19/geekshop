@@ -57,11 +57,29 @@ class Order(models.Model):
         self.save()
 
 
+"""
+class OrderItemQuerySet(models.QuerySet):
+// для обновления инфы без @receiver во views
+   def delete(self, *args, **kwargs):
+       for object in self:
+           object.product.quantity += object.quantity
+           object.product.save()
+       super(OrderItemQuerySet, self).delete(*args, **kwargs)
+"""
+
+
 class OrderItem(models.Model):
     order = models.ForeignKey(Order,verbose_name='заказ',related_name='orderitems',on_delete=models.CASCADE)
     product = models.ForeignKey(Product,verbose_name='продукты',on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(verbose_name='количество',default=0)
 
+    # objects = OrderItemQuerySet.as_manager()
+
     def get_product_cost(self):
         return self.product.price * self.quantity
+
+    @staticmethod
+    def get_item(pk):
+        return OrderItem.objects.get(pk=pk).quantity
+
 
