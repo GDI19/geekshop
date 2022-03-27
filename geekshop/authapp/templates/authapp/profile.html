@@ -1,0 +1,140 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+<!--
+
+    <form class="form-horizontal" action="{% url 'authapp:profile' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ edit_form.as_p }}
+        <input class="form-control" type="submit" value="сохранить">
+    </form>
+    <button class="btn btn-round form-control last">
+        <a href="{% url 'main' %}" class="">
+            на главную
+        </a>
+    </button>
+    <div class="user_avatar"><img src="/media/{{ user.avatar }}"></div>
+
+-->
+{% block css %}
+    <link href="{% static 'css/profile.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="container" style="margin-top: 50px;">
+        <div class="row">
+            <div class="col-lg-7">
+
+            {% if form.non_field_errors or messages %}
+                    <div class="alert {% if messages.level == 25 %} alert-success {% else %} alert-warning {% endif %}alert-dismissible fade show"
+                         role="alert"
+                         style="margin-top: 50px;">
+
+                        {% if messages %}
+                            {% for mes in messages %}
+                                {{ mes }}
+                            {% endfor %}
+                        {% else %}
+                            {% for error in form.non_field_errors %}
+                                {{error}}
+                            {% endfor %}
+                        {% endif %}
+
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+            {% endif %}
+
+                <h4 class="mt-3 mb-3">Профиль</h4>
+                <div class="col-lg-12 text-center">
+                    <img width="100" height="100"
+
+                         src="{% if user.avatar %} {{ user.avatar.url }}  {% else %} {% static 'vendor/img/users/default_avatar.jpg' %}{% endif %}"
+
+                         class="img-thumbnail">
+                </div>
+                <form action="{% url 'authapp:profile' %} " method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="small mb-1" for="{{ edit_form.first_name.id_for_label }}">Имя</label>
+
+                                {{ form.first_name }}
+
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="small mb-1" for="{{ edit_form.last_name.id_for_label }}">Фамилия</label>
+
+                                {{ form.last_name }}
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row mb-2">
+                        <div class="col-lg-12">
+                            <div class="custom-file">
+
+                                {{ form.avatar }}
+                                <label class="custom-file-label" for="{{ edit_form.avatar.id_for_label }}">Выберите изображение</label>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-6">
+                            <label class="small mb-1" for="{{edit_form.username.id_for_label}}">Имя пользователя</label>
+                            {{ form.username}}
+                        </div>
+
+                        <div class="col-lg-6">
+                            <label class="small mb-1" for="{{edit_form.email.id_for_label}}">Адрес электронной
+                                почты</label>
+                            {{form.email}}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-6">
+                            <label class="small mb-1" for="{{edit_form.age.id_for_label}}">Имя пользователя</label>
+                            {{ form.age}}
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="small mb-1" for="{{ profile.gender.id_for_label }}">Пол
+                            </label>
+                            {{ profile.gender }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-12">
+                            <label class="small mb-1" for="{{ profile.about.id_for_label }}">О себе
+                            </label>
+                            {{ profile.aboutMe }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-12">
+                            <label class="small mb-1" for="{{ profile.tagline.id_for_label }}">Теги
+                            </label>
+                            {{ profile.tagline }}
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="col-lg-12" style="margin-top: 33px;">
+                            <input class="btn btn-info btn-block" type="submit" value="Сохранить">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-5">
+
+                {% include 'basketapp/basket.html' %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,3 +1,7 @@
 body {
     padding-top: 56px;
 }
+
+.dropdown-menu{
+    min-width: 7rem !important;
+}

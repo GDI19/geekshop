@@ -1,0 +1,89 @@
+{% extends 'admins/base.html' %}
+
+{% block content %}
+            <div class="container-fluid">
+                <h1 class="mt-4">{{title}}</h1>
+
+
+
+            {% if error_mess %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert"
+                     style="margin-top: 50px;">
+                    <strong>Holy guacamole!</strong>
+
+                        {{ error_mess | escape }}
+
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+
+                <form action="{% url 'admins:product_create' %}" method="post">
+                    {% csrf_token %}
+
+                    <div class="form-row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="small mb-1" for="{{ product_form.category.id_for_label }}">категория</label>
+                                {{ form.category }}
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="small mb-1" for="{{ product_form.name.id_for_label }}">Наименование</label>
+                                {{ form.name }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="small mb-1" for="{{ product_form.description.id_for_label }}">Описание</label>
+                                {{ form.description }}
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="small mb-1" for="{{ product_form.price.id_for_label }}">Цена</label>
+                                {{ form.price }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="small mb-1" for="{{ product_form.quantity.id_for_label }}">Количество</label>
+                                {{ form.quantity }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-lg-6">
+                            <div class="custom-file">
+                                {{ form.image }}
+                                <label class="custom-file-label" for="{{ product_form.image.id_for_label }}">Выберите изображение</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-lg-6" style="margin-top: 33px;">
+                            <input class="btn btn-info btn-block" type="submit" value="Сохранить">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+{% endblock %}
