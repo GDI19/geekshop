@@ -19,3 +19,8 @@ body {
     text-decoration: none;
     color: white;
 }
+
+.dropdown-menu{
+    min-width: 7rem !important;
+}
+

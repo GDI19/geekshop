@@ -38,7 +38,7 @@
                 <li class="nav-item">
                     <a class="navbar-brand" >{% now "d M Y " %} </a>
                 </li>
-                <li class="nav-item"6>
+                <li class="nav-item" >
                     <a class="nav-link" href="{% url 'mainapp:products' %}">Каталог <i class="fas fa-shopping-bag"></i> </a>
                 </li>
 
@@ -48,9 +48,16 @@
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'authapp:profile' %}">{{ user.username|default:'Пользователь' }}
-                            <i class="fas fa-user-circle"></i>
-                        </a>
+                        <div class="dropdown">
+                            <a class="nav-link drop-toggle" href="" data-toggle="dropdown">
+                                {{ user.username|default:'Пользователь' }}
+                                <i class="fas fa-user-circle"></i>
+                            </a>
+                                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item" href="{% url 'authapp:profile' %}">Профиль</a>
+                                    <a class="dropdown-item" href="{% url 'orders:list' %}">Заказы</a>
+                                  </div>
+                        </div>
                     </li>
                 {% if user.is_superuser %}
                     <li class="nav-item">
