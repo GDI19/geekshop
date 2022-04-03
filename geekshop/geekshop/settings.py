@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-1=q9xr7v$quaid7t_mj^jv22v-j2%ete1g1$a$$$f*k7nmlx#5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*'] # Все хосты или перечислить через запятую ['127.0.0.1']
+ALLOWED_HOSTS = ['*']  # Все хосты или перечислить через запятую ['127.0.0.1']
 
 """
 # for local development with django-debug-tool
@@ -96,10 +96,10 @@ WSGI_APPLICATION = 'geekshop.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    #'default': {
+    # 'default': {
     #    'ENGINE': 'django.db.backends.sqlite3',
     #    'NAME': BASE_DIR / 'db.sqlite3',
-    #},
+    # },
 
     'default': {
         'NAME': 'geekshop',
@@ -234,4 +234,4 @@ if DEBUG:
         'debug_toolbar.panels.profiling.ProfilingPanel',
         'template_profiler_panel.panels.template.TemplateProfilerPanel',
     ]
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
