@@ -57,6 +57,6 @@ class ProductDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ProductDetail, self).get_context_data(**kwargs)
-        product = self.get_object()
+        product = self.get_object().select_related('category')
         context['product'] = product
         return context
