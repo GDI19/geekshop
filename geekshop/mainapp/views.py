@@ -56,7 +56,7 @@ class ProductDetail(DetailView):
     template_name = 'mainapp/detail.html'
 
     def get_context_data(self, **kwargs):
-        context = super(ProductDetail, self).get_context_data(**kwargs)
-        product = self.get_object().select_related('category')
+        context = super(ProductDetail, self).get_context_data(**kwargs).select_related('category')
+        product = self.get_object()
         context['product'] = product
         return context
