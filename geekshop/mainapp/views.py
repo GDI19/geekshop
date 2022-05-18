@@ -19,9 +19,9 @@ def index(request):
 def products(request, id_category=None, page=1):
     # file_path = os.path.join(MODULE_DIR, 'fixtures/goods.json')
     if id_category:
-        products = Product.objects.filter(category_id=id_category, is_active=True, category__is_active=True)
+        products = Product.objects.filter(category_id=id_category, is_active=True, category__is_active=True).select_related('category')
     else:
-        products = Product.objects.filter(is_active=True, category__is_active=True)
+        products = Product.objects.filter(is_active=True, category__is_active=True).select_related('category')
 
     paginator = Paginator(products, per_page=3)
 
