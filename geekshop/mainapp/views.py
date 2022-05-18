@@ -19,9 +19,9 @@ def index(request):
 def products(request, id_category=None, page=1):
     # file_path = os.path.join(MODULE_DIR, 'fixtures/goods.json')
     if id_category:
-        products = Product.objects.filter(category_id=id_category, is_active=True, category__is_active=True).select_related('category')
+        products = Product.objects.filter(category_id=id_category, is_active=True, category__is_active=True)
     else:
-        products = Product.objects.filter(is_active=True, category__is_active=True).select_related('category')
+        products = Product.objects.filter(is_active=True, category__is_active=True)
 
     paginator = Paginator(products, per_page=3)
 
@@ -56,7 +56,7 @@ class ProductDetail(DetailView):
     template_name = 'mainapp/detail.html'
 
     def get_context_data(self, **kwargs):
-        context = super(ProductDetail, self).get_context_data(**kwargs).select_related('category')
+        context = super(ProductDetail, self).get_context_data(**kwargs)
         product = self.get_object()
         context['product'] = product
         return context
