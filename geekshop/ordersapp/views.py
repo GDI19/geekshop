@@ -17,6 +17,8 @@ from django.db.models.signals import pre_save, pre_delete
 
 from mainapp.models import Product
 
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 
 class OrderList(ListView, BaseClassContextMixin):
     model = Order
@@ -24,6 +26,10 @@ class OrderList(ListView, BaseClassContextMixin):
 
     def get_queryset(self):
         return Order.objects.filter(user=self.request.user, is_active=True)
+
+    @method_decorator(login_required())
+    def dispatch(self, *args, **kwargs):
+        return super(ListView, self).dispatch(*args, **kwargs)
 
 
 class OrderCreate(CreateView, BaseClassContextMixin):

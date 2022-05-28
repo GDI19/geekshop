@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-1=q9xr7v$quaid7t_mj^jv22v-j2%ete1g1$a$$$f*k7nmlx#5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']  # Все хосты или перечислить через запятую ['127.0.0.1']
 
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'social_django',
     'debug_toolbar',
     'template_profiler_panel',
+    'django_extensions',
 
     'mainapp',
     'authapp',
@@ -148,6 +149,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/static')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
@@ -234,4 +237,3 @@ if DEBUG:
         'debug_toolbar.panels.profiling.ProfilingPanel',
         'template_profiler_panel.panels.template.TemplateProfilerPanel',
     ]
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
