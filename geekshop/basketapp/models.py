@@ -1,3 +1,5 @@
+from django.utils.functional import cached_property
+
 from django.conf import settings
 from django.db import models
 
@@ -27,15 +29,21 @@ class Basket(models.Model):
     def __str__(self):
         return f'Корзина для {self.user.username} | Продукт {self.product.name}'
 
+    @cached_property
+    def get_items_cached(self):
+        return self.user.basket.select_related()
+
     def sum(self):
-        return self.quantity * self.product.price
+       return self.quantity * self.product.price
 
     def total_sum(self):
-        baskets = Basket.objects.filter(user=self.user)
+        # baskets = Basket.objects.filter(user=self.user)
+        baskets = self.get_items_cached
         return sum(basket.sum() for basket in baskets)
 
     def total_quantity(self):
-        baskets = Basket.objects.filter(user=self.user)
+        # baskets = Basket.objects.filter(user=self.user)
+        baskets = self.get_items_cached
         return sum(basket.quantity for basket in baskets)
 
     @staticmethod
