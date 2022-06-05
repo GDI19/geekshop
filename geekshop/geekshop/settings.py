@@ -167,10 +167,21 @@ LOGIN_URL = '/auth/login/'
 # Админка перенаправляет вместо стандарта (accounts/profile) на нужную страницу (например:  '/' - домашняя)
 LOGIN_REDIRECT_URL = '/auth/profile/'
 
+with open('./vk.json') as f:
+    VK = json.load(f)
+
+SOCIAL_AUTH_VK_OAUTH2_KEY = VK['SOCIAL_AUTH_VK_OAUTH2_KEY']
+SOCIAL_AUTH_VK_OAUTH2_SECRET = VK['SOCIAL_AUTH_VK_OAUTH2_SECRET']
+# SOCIAL_AUTH_VK_OAUTH2_API_VERSION = '5.131'
 # Отключаем масштаб (scope) данных пользователя по умолчанию:
 SOCIAL_AUTH_VK_OAUTH2_IGNORE_DEFAULT_SCOPE = True
 # Добавляем свой масштаб (scope):
 SOCIAL_AUTH_VK_OAUTH2_SCOPE = ['email']
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.vk.VKOAuth2',
+)
 
 SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_details',
@@ -201,16 +212,6 @@ EMAIL_USE_SSL = False
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = 'tmp/email-messages/'
 
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    'social_core.backends.vk.VKOAuth2',
-)
-
-with open('./vk.json') as f:
-    VK = json.load(f)
-
-SOCIAL_AUTH_VK_OAUTH2_KEY = VK['SOCIAL_AUTH_VK_OAUTH2_KEY']
-SOCIAL_AUTH_VK_OAUTH2_SECRET = VK['SOCIAL_AUTH_VK_OAUTH2_SECRET']
 
 # Для работы инструментов отладки debug-toolbar на реальном сервере
 if DEBUG:
@@ -237,3 +238,16 @@ if DEBUG:
         'debug_toolbar.panels.profiling.ProfilingPanel',
         'template_profiler_panel.panels.template.TemplateProfilerPanel',
     ]
+
+CACHE_MIDDLEWARE_ALIAS = 'default'
+CACHE_MIDDLEWARE_SECONDS = 120
+CACHE_MIDDLEWARE_KEY_PREFIX = 'geekbrains'
+
+CACHES = {
+    'default':{
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '31.31.202.189:11211'
+    }
+}
+
+LOW_CACHE = True
