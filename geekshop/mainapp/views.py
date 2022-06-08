@@ -55,6 +55,7 @@ def index(request):
     return render(request, 'mainapp/index.html', context)
 
 
+# @cache_page(3600)
 @never_cache
 def products(request, id_category=None, page=1):
     # file_path = os.path.join(MODULE_DIR, 'fixtures/goods.json')
