@@ -8,6 +8,9 @@ from admins.forms import ProductCategoryEditForm, UserAdminRegisterForm, UserAdm
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from mainapp.mixin import CustomDispatchMixin, BaseClassContextMixin, UserDispatchMixin
 
+from django.dispatch import receiver
+from django.db.models.signals import pre_save
+from django.db import connection
 
 @user_passes_test(lambda u: u.is_superuser)
 def index(request):
@@ -125,6 +128,15 @@ class ProductDeleteView(DeleteView, CustomDispatchMixin):
             self.object.is_active = True
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
+
+
+@receiver(pre_save, sender=ProductCategory)
+def product_is_active_update_productcategory_save(sender, instance, **kwargs):
+    if instance.pk:
+        if instance.is_active:
+            instance.product_set.update(is_active=True)
+    else:
+        instance.product_set.update(is_active=False)
 
 
 """
