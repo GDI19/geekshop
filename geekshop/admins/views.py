@@ -10,7 +10,8 @@ from mainapp.mixin import CustomDispatchMixin, BaseClassContextMixin, UserDispat
 
 from django.dispatch import receiver
 from django.db.models.signals import pre_save
-from django.db import connection
+
+from django.db.models import F
 
 @user_passes_test(lambda u: u.is_superuser)
 def index(request):
@@ -78,6 +79,14 @@ class CategoryUpdateView(UpdateView, BaseClassContextMixin, CustomDispatchMixin)
     form_class = ProductCategoryEditForm
     success_url = reverse_lazy('admins:admin_category')
     title = 'Редактирование категории'
+
+    def form_valid(self, form):
+        if 'discount' in form.cleaned_data:
+            discount = form.cleaned_data['discount']
+
+            if discount:
+                self.object.product_set.update(price=F('price') * (1 - discount / 100))
+        return super().form_valid(form)
 
 
 class CategoryDeleteView(DeleteView, CustomDispatchMixin):

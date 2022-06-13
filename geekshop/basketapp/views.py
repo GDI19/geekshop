@@ -29,6 +29,7 @@ def basket_add(request, id):
         baskets = Basket.objects.filter(user=user_select, product=product)
 
         if baskets:
+            # baskets[0].quantity = F('quantity') + 1
             basket = baskets.first()
             basket.quantity += 1
             basket.save()
