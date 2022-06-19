@@ -40,11 +40,11 @@ class UserRegisterForm(UserCreationForm):
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control py-4'
 
-    def clean_age(self):
-        data = self.cleaned_data['age']
-        if data < 18:
-            raise forms.ValidationError("Вы слишком молоды!")
-        return data
+    # def clean_age(self):
+    #     data = self.cleaned_data['age']
+    #     if data < 18:
+    #         raise forms.ValidationError("Вы слишком молоды!")
+    #     return data
 
     def save(self):
         user = super(UserRegisterForm, self).save()

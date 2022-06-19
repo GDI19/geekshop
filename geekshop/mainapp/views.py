@@ -86,8 +86,8 @@ def products(request, id_category=None, page=1):
     return render(request, 'mainapp/products.html', context)
 
 
-def contact(request):
-    return render(request, 'mainapp/contact.html')
+# def contact(request):
+#    return render(request, 'mainapp/contact.html')
 
 
 class ProductDetail(DetailView):

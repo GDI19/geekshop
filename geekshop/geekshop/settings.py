@@ -202,15 +202,15 @@ DOMAIN_NAME = 'http://localhost:8000'
 # вариант python -m smtpd -n -c DebuggingServer localhost:25
 # т.к. smtpd не поддерживает аутентификацию
 # EMAIL_HOST_USER, EMAIL_HOST_PASSWORD = None, None
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = '25'
-EMAIL_HOST_USER = None  # 'django@geekshop.local'
-EMAIL_HOST_PASSWORD = None  # 'geekshop'
-EMAIL_USE_SSL = False
-
-# вариант логирования сообщений почты в виде файлов вместо отправки
-EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = 'tmp/email-messages/'
+# EMAIL_HOST = 'localhost'
+# EMAIL_PORT = '25'
+# EMAIL_HOST_USER = None  # 'django@geekshop.local'
+# EMAIL_HOST_PASSWORD = None  # 'geekshop'
+# EMAIL_USE_SSL = False
+#
+# # вариант логирования сообщений почты в виде файлов вместо отправки
+# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+# EMAIL_FILE_PATH = 'tmp/email-messages/'
 
 
 # Для работы инструментов отладки debug-toolbar на реальном сервере
