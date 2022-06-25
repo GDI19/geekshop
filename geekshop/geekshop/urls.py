@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from mainapp.views import index, contact
+from mainapp.views import index #, contact
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import include
@@ -24,7 +24,7 @@ from django.conf.urls import include
 urlpatterns = [
     path('', index, name='index'),
     path('products/',  include('mainapp.urls', namespace='mainapp')),
-    path('contact/', contact,),
+    # path('contact/', contact,),
     path('admin/', admin.site.urls),
     path('auth/', include('authapp.urls', namespace='auth')),
     path('basket/', include('basketapp.urls', namespace='basket')),

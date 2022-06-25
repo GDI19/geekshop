@@ -31,3 +31,8 @@ class Product(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.category.name})"
+
+# @receiver (pre_save, sender=ProductCategory)
+# def product_is_active_update_on_category_save(sender, update_fields, instance, **kwargs):
+#     if instance.pk:
+#         instance.product_set.update(is_active=instance.is_active)

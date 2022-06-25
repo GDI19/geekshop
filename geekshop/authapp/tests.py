@@ -105,7 +105,8 @@ class TestUserManagement(TestCase):
         # проверяем главную страницу
         response = self.client.get('/')
         self.assertContains(response, text=new_user_data['first_name'], status_code=200)
-#
+
+    # тест на отмену регистрации из-за возраста < 18, если добавить поле возраст
     #def test_user_wrong_register(self):
     #    new_user_data = {
     #        'username': 'teen',
