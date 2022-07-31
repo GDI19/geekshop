@@ -3,7 +3,6 @@ from django.forms import inlineformset_factory
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404
 
-# Create your views here.
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView
 
@@ -139,15 +138,14 @@ def get_product_price(request, pk):
 
 @receiver(pre_save, sender=Basket)
 @receiver(pre_save, sender=OrderItem)
-def product_quantity_update_save(sender, update_fields, instance, **kwargs):
-    if update_fields is 'quantity' or 'product':
-        # Проверяем,это объект уже существующий или новый
-        if instance.pk:
-            get_item = instance.get_item(int(instance.pk))
-            instance.product.quantity -= instance.quantity - get_item
-        else:
-            instance.product.quantity -= instance.quantity
-        instance.product.save()
+def product_quantity_update_save(sender, instance, **kwargs):
+    # Проверяем,это объект уже существующий или новый
+    if instance.pk:
+        get_item = instance.get_item(int(instance.pk))
+        instance.product.quantity -= instance.quantity - get_item
+    else:
+        instance.product.quantity -= instance.quantity
+    instance.product.save()
 
 
 @receiver(pre_delete, sender=Basket)

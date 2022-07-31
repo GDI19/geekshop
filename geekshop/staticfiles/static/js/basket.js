@@ -18,7 +18,7 @@ window.onload = function(){
             url:"/basket/add/" + t_href + "/",
             success:function(data){
                 $('.card_add_basket').html(data.result)
-                alert('товар добавлен в корзину')
+
             },
         });
         event.preventDefault();

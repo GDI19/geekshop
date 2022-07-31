@@ -75,10 +75,10 @@ def verify(request, email, activation_key):
             auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             return render(request, 'authapp/verification.html')
         else:
-            print(f'error activation user: {user}')
+            print(f'error key activation user: {user}')
             return render(request, 'authapp/verification.html')
     except Exception as e:
-        print(f'error activation user : {e.args}')
+        print(f'error email activation user : {e.args}')
         return HttpResponseRedirect(reverse('index'))
 
 
@@ -92,6 +92,8 @@ class ProfileFormView(UpdateView, BaseClassContextMixin, UserDispatchMixin):
         form = UserProfilerForm(data=request.POST, files=request.FILES, instance=request.user)
         profile_form = UserProfileEditForm(request.POST, instance=request.user.shopuserprofile)
         if form.is_valid() and profile_form.is_valid():
+            messages.set_level(self.request, messages.SUCCESS)
+            messages.success(self.request, "Вы успешно обновили информацию")
             form.save()
         return redirect(self.success_url)
 

@@ -63,8 +63,6 @@ class Order(models.Model):
             'get_total_quantity': sum(list(map(lambda x: x.quantity, items)))
         }
 
-
-
 """
 class OrderItemQuerySet(models.QuerySet):
 // для обновления инфы без @receiver во views
@@ -74,7 +72,6 @@ class OrderItemQuerySet(models.QuerySet):
            object.product.save()
        super(OrderItemQuerySet, self).delete(*args, **kwargs)
 """
-
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, verbose_name='заказ', related_name='orderitems', on_delete=models.CASCADE)

@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-1=q9xr7v$quaid7t_mj^jv22v-j2%ete1g1$a$$$f*k7nmlx#5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']  # Все хосты или перечислить через запятую ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']  # Все хосты ['*'] или перечислить через запятую
 
 """
 # for local development with django-debug-tool
@@ -97,18 +97,18 @@ WSGI_APPLICATION = 'geekshop.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #    'ENGINE': 'django.db.backends.sqlite3',
-    #    'NAME': BASE_DIR / 'db.sqlite3',
-    # },
-
     'default': {
-        'NAME': 'geekshop',
-        'ENGINE': 'django.db.backends.postgresql',
-        'USER': 'django',
-        'PASSWORD': 'geekbrains',
-        'HOST': 'localhost'
-    }
+    'ENGINE': 'django.db.backends.sqlite3',
+       'NAME': BASE_DIR / 'db.sqlite3',
+    },
+
+    # 'default': {
+    #     'NAME': 'geekshop',
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'USER': 'django',
+    #     'PASSWORD': 'geekbrains',
+    #     'HOST': 'localhost'
+    # }
 }
 
 # Password validation
@@ -146,10 +146,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# This setting defines the additional locations the staticfiles app will traverse
+# if the FileSystemFinder finder is enabled,
+# e.g. if you use the collectstatic or findstatic management command or use the static file serving view.
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/static')
+# collects static files into STATIC_ROOT
+# The absolute path to the directory where collectstatic will collect static files for deployment.
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -202,52 +208,62 @@ DOMAIN_NAME = 'http://localhost:8000'
 # вариант python -m smtpd -n -c DebuggingServer localhost:25
 # т.к. smtpd не поддерживает аутентификацию
 # EMAIL_HOST_USER, EMAIL_HOST_PASSWORD = None, None
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = '25'
-EMAIL_HOST_USER = None  # 'django@geekshop.local'
-EMAIL_HOST_PASSWORD = None  # 'geekshop'
-EMAIL_USE_SSL = False
-
+# EMAIL_HOST = 'localhost'
+# EMAIL_PORT = '25'
+# EMAIL_HOST_USER = None  # 'django@geekshop.local'
+# EMAIL_HOST_PASSWORD = None  # 'geekshop'
+# EMAIL_USE_SSL = False
+#
 # вариант логирования сообщений почты в виде файлов вместо отправки
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = 'tmp/email-messages/'
 
 
 # Для работы инструментов отладки debug-toolbar на реальном сервере
-if DEBUG:
-    def show_toolbar(request):
-        return True
+#if DEBUG:
+#    def show_toolbar(request):
+#        return True
+#
+#    DEBUG_TOOLBAR_CONFIG = {
+#        'SHOW_TOOLBAR_CALLBACK': show_toolbar,
+#    }
+#
+#    DEBUG_TOOLBAR_PANELS = [
+#        'debug_toolbar.panels.versions.VersionsPanel',
+#        'debug_toolbar.panels.timer.TimerPanel',
+#        'debug_toolbar.panels.settings.SettingsPanel',
+#        'debug_toolbar.panels.headers.HeadersPanel',
+#        'debug_toolbar.panels.request.RequestPanel',
+#        'debug_toolbar.panels.sql.SQLPanel',
+#        'debug_toolbar.panels.templates.TemplatesPanel',
+#        'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+#        'debug_toolbar.panels.cache.CachePanel',
+#        'debug_toolbar.panels.signals.SignalsPanel',
+#        'debug_toolbar.panels.logging.LoggingPanel',
+#        'debug_toolbar.panels.redirects.RedirectsPanel',
+#        'debug_toolbar.panels.profiling.ProfilingPanel',
+#        'template_profiler_panel.panels.template.TemplateProfilerPanel',
+#    ]
 
-    DEBUG_TOOLBAR_CONFIG = {
-        'SHOW_TOOLBAR_CALLBACK': show_toolbar,
-    }
+# для того чтобы статика не кешировалась
+# if DEBUG:
+#     MIDDLEWARE = [
+#         'whitenoise.middleware.WhiteNoiseMiddleware',
+#     ] + MIDDLEWARE
+#     INSTALLED_APPS = [
+#         'whitenoise.runserver_nostatic',
+#     ] + INSTALLED_APPS
 
-    DEBUG_TOOLBAR_PANELS = [
-        'debug_toolbar.panels.versions.VersionsPanel',
-        'debug_toolbar.panels.timer.TimerPanel',
-        'debug_toolbar.panels.settings.SettingsPanel',
-        'debug_toolbar.panels.headers.HeadersPanel',
-        'debug_toolbar.panels.request.RequestPanel',
-        'debug_toolbar.panels.sql.SQLPanel',
-        'debug_toolbar.panels.templates.TemplatesPanel',
-        'debug_toolbar.panels.staticfiles.StaticFilesPanel',
-        'debug_toolbar.panels.cache.CachePanel',
-        'debug_toolbar.panels.signals.SignalsPanel',
-        'debug_toolbar.panels.logging.LoggingPanel',
-        'debug_toolbar.panels.redirects.RedirectsPanel',
-        'debug_toolbar.panels.profiling.ProfilingPanel',
-        'template_profiler_panel.panels.template.TemplateProfilerPanel',
-    ]
 
-CACHE_MIDDLEWARE_ALIAS = 'default'
-CACHE_MIDDLEWARE_SECONDS = 120
-CACHE_MIDDLEWARE_KEY_PREFIX = 'geekbrains'
-
-CACHES = {
-    'default':{
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '31.31.202.189:11211'
-    }
-}
-
-LOW_CACHE = True
+# CACHE_MIDDLEWARE_ALIAS = 'default'
+# CACHE_MIDDLEWARE_SECONDS = 120
+# CACHE_MIDDLEWARE_KEY_PREFIX = 'geekbrains'
+#
+# CACHES = {
+#     'default':{
+#         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+#         'LOCATION': '31.31.202.189:11211'
+#     }
+# }
+#
+LOW_CACHE = False # для включения кэш True
