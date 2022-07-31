@@ -20,6 +20,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import include
 
+from django.contrib.staticfiles.views import serve
+from django.views.decorators.cache import cache_control
+from django.views.decorators.cache import never_cache
 
 urlpatterns = [
     path('', index, name='index'),
@@ -35,6 +38,13 @@ urlpatterns = [
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+# для того чтобы статика не кешировалась использовать при runserver --nostatic
+# if settings.DEBUG:
+#     urlpatterns += static(settings.STATIC_URL, view=cache_control(no_cache=True, must_revalidate=True)(serve))
+# другой способ не кэшировать
 if settings.DEBUG:
-    import debug_toolbar
-    urlpatterns += [path('__debug__/', include(debug_toolbar.urls))]
+    urlpatterns += static(settings.STATIC_URL, view=never_cache(serve))
+
+# if settings.DEBUG:
+#     import debug_toolbar
+#     urlpatterns += [path('__debug__/', include(debug_toolbar.urls))]

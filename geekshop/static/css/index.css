@@ -1,7 +1,7 @@
 {% load static %}
 
 body {
-    background: url("../vendor/img/wallpaper.jpg") no-repeat center top fixed;
+    background: url("../vendor/img/wallpaper.jpg") no-repeat center top 40px;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -23,4 +23,6 @@ body {
 .dropdown-menu{
     min-width: 7rem !important;
 }
+
+
 

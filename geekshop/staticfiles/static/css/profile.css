@@ -5,3 +5,6 @@ body {
 .dropdown-menu{
     min-width: 7rem !important;
 }
+a {
+    color: white;
+}

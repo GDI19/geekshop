@@ -5,6 +5,7 @@ from django.core.management import call_command
 from django.conf import settings
 
 
+
 class TestUserManagement(TestCase):
     def setUp(self):
         call_command('flush', '--noinput')
@@ -64,7 +65,7 @@ class TestUserManagement(TestCase):
 
         # выходим из системы
         response = self.client.get('/auth/logout/')
-        self.assertEqual(response.status_code, 200) # 302 запрошенный ресурс временно изменён. Новые изменения в URI могут быть доступны в будущем.
+        self.assertEqual(response.status_code, 200) # or 302 запрошенный ресурс временно изменён. Новые изменения в URI могут быть доступны в будущем.
 
         # главная после выхода
         response = self.client.get('/')
@@ -86,13 +87,20 @@ class TestUserManagement(TestCase):
             'email': 'sumuel@geekshop.local'
         }
         response = self.client.post('/auth/register/', data=new_user_data)
-        print(response.status_code)
         self.assertEqual(response.status_code, 302)
 
         new_user = User.objects.get(username=new_user_data['username'])
         activation_url = f"{settings.DOMAIN_NAME}/auth/verify/{new_user_data['email']}/{new_user.activation_key}/"
         response = self.client.get(activation_url)
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200) # или 302 если перенаправление на использование данных в будущем
+
+        # from django.contrib.messages import get_messages
+        # print(list(m.message for m in response.context['messages']))
+        # message = list(m.message for m in response.context['messages'])[0]
+        # messages = [m.message for m in get_messages(response.wsgi_request)]
+        messages = list(response.context['messages'])
+        self.assertEqual(str(messages[0]), 'Вы успешно зарегистрировались, вам была отправлена ссылка на почту '
+                                                       'подтвердите свой  аккаунт перейдя по ссылке')
 
         # данные нового пользователя
         self.client.login(username=new_user_data['username'], password=new_user_data['password1'])
@@ -104,7 +112,30 @@ class TestUserManagement(TestCase):
 
         # проверяем главную страницу
         response = self.client.get('/')
-        self.assertContains(response, text=new_user_data['first_name'], status_code=200)
+        self.assertContains(response, text=new_user_data['username'], status_code=200)
+
+        # Проверяем профайл
+        response = self.client.get('/auth/profile/')
+        self.assertEqual(response.status_code, 200)
+
+        new_user_data['first_name']= 'Сэмюэл2'
+        new_user_data['age'] = 30
+
+        response = self.client.post('/auth/profile/', data=new_user_data)
+        self.assertEqual(response.status_code, 302)
+
+        response = self.client.get('/auth/profile/')
+        messages = list(response.context['messages'])
+        self.assertEqual(str(messages[0]), 'Вы успешно обновили информацию' )
+        self.assertEqual(response.status_code, 200)
+
+        # если ключ активицации старый
+        # new_user_data['activation_key_expires']= '04.04.2000'
+        # activation_url = f"{settings.DOMAIN_NAME}/auth/verify/{new_user_data['email']}/{new_user.activation_key}/"
+        # response = self.client.get(activation_url)
+        # self.assertEqual(response.status_code, 200)
+
+
 
     # тест на отмену регистрации из-за возраста < 18, если добавить поле возраст
     #def test_user_wrong_register(self):
