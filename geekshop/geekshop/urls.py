@@ -42,8 +42,8 @@ urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # if settings.DEBUG:
 #     urlpatterns += static(settings.STATIC_URL, view=cache_control(no_cache=True, must_revalidate=True)(serve))
 # другой способ не кэшировать
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, view=never_cache(serve))
+# if settings.DEBUG:
+#     urlpatterns += static(settings.STATIC_URL, view=never_cache(serve))
 
 # if settings.DEBUG:
 #     import debug_toolbar
